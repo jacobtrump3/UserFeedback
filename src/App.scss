@@ -1,0 +1,40 @@
+.header{
+    position: absolute;
+    text-align: center;
+    background-color: rgb(57, 57, 249);
+    top: 0;
+    width: 100%;
+    left: 0;
+}
+.userFeedback-btn{
+    background-color: blue;
+    font-size: 15pt;
+    color: white;
+    margin: auto;
+    border: none;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+.userFeedback-btn:hover{
+    color: rgb(203, 203, 203);
+}
+.userFeedback-btn:focus{
+    outline: none;
+}
+
+.log{
+    position: absolute;
+    margin-top: 150px;
+    margin-left: 20%;
+    border: 1px solid black;
+    height: 60%;
+    overflow: hidden;
+    width: 60%;
+}
+
+@media(max-width: 500px){
+    .log{
+        margin-left: 3%;
+        width: 90%;
+    }
+}

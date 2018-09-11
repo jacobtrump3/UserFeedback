@@ -1,0 +1,106 @@
+.modal-backdrop{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: rgba(200, 200, 200, 0.7);
+    z-index: 3;
+    top: 0;
+    left: 0;
+}
+.modal{
+    z-index:10;
+    position: relative;
+    height: 350px;
+    width: 350px;
+    background-color: white ;
+    margin: auto;
+    top: 15%;
+    color: black;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    padding-top: .1px;
+    border-radius: 2px;
+    box-shadow: .5px .5px .5px .5px  rgba(128, 128, 128, 0.25);
+}
+@media(max-width: 500px){
+    .modal{
+        margin-left: 5vw;
+        width: 85vw;
+    }
+}
+h2{
+    font-weight: 300;
+}
+h4{
+    margin: 0;
+    font-weight: 300;
+    margin-top: 20px;
+    i{
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 90%;
+    }
+}
+
+.star{
+    font-size: 25pt;
+    color: blue;
+    font-weight: 100;
+    label{
+        position: absolute;
+        color: blue;
+        z-index:5;
+    }
+}
+[aria-hidden="false"]{
+    display: block;
+
+}
+[aria-hidden="true"]{
+    opacity: 0;
+}
+
+.user-input{
+    resize: none;
+    height: 25%;
+    width: 99%;
+    margin: auto;
+    size: fixed;
+    margin-top: 10px;
+    border-radius: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn{
+    margin-top: 5px;
+    font-size: 14pt;
+    border-radius: 3px;
+    border: none;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.btn:focus{
+    outline: none;
+}
+.submit-btn{
+    margin-right: 10px;
+    color: white;
+    background-color: blue;
+    box-shadow: 0px 2px rgb(0, 0, 111);
+
+}
+.submit-btn:active{
+    background-color: rgb(3, 3, 223);
+    box-shadow: 0px 1px rgb(0, 0, 111);
+}
+.cancel-btn{
+    box-shadow: 0px 2px rgb(167, 167, 167);
+}
+.cancel-btn:active{
+    box-shadow: 0px 1px rgb(167, 167, 167);
+}
+
