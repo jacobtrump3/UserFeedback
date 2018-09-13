@@ -1,5 +1,5 @@
 import initialState from "../reducers/ReviewReducer";
-import { loadReviews } from "../actions/ReviewAction";
+import "isomorphic-fetch";
 var key = config.API_KEY;
 class ReviewApi {  
     static loadReviews() {
@@ -31,6 +31,25 @@ class ReviewApi {
       }).catch(error => {
         return error;
       });
+    }
+
+    static deleteReview(reviewId){
+      const url = "https://user-feedback-testdata.firebaseio.com/"+reviewId+".json?auth="+key;
+      const listUrl = "https://user-feedback-testdata.firebaseio.com/.json?auth="+key;
+      const request = new Request(url,{
+        method: 'DELETE',
+      });
+      return fetch(request)
+      .then( () => { 
+        return fetch(listUrl).then(response => {
+          return response.json();
+        }).catch(error => {
+          return initialState;
+        });
+      }).catch(error => {
+        return error;
+      });
+        
     }
 }
   

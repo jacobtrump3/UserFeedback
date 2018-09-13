@@ -9,6 +9,11 @@ export function loadReviewsSuccess(review) {
 export function addReviewSuccess(review){
   return{type: types.ADD_REVIEW_SUCCESS, review};
 }
+
+export function deleteReviewSuccess(review){
+  return{type: types.DELETE_REVIEW_SUCCESS, review};
+}
+
 export function loadReviews() {  
   return function(dispatch) {
     return ReviewApi
@@ -30,4 +35,15 @@ export function addReview(review) {
       throw(error);
     });
   };
+}
+export function deleteReview(reviewId) {
+  return function(dispatch) {
+    return ReviewApi
+    .deleteReview(reviewId)
+    .then(responseReview => {
+      dispatch(deleteReviewSuccess(responseReview));
+    }).catch(error =>{
+      throw(error);
+    })
+  }
 }

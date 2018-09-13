@@ -2,6 +2,8 @@ h2,h3{
     text-align: center;
 }
 .feedback{
+    height: 800px;;
+    overflow: auto;
     li{
         list-style: none;
         .star-rating{
@@ -18,18 +20,9 @@ h2,h3{
         }
     }
 }
-.delete-btn{
-    float: right;
-    margin-right: 10px;
-}
+
 .feedback-item{
     border: 1px solid rgba(81, 81, 248, 0.631);
     margin: 0;
-    padding-left: 10%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-}
-.feedback-list{
-    padding: 0;
+    padding:20px;
 }

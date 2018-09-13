@@ -7,17 +7,17 @@ import FeedbackLog from './components/FeedbackLog/FeedbackLog';
 import {bindActionCreators} from 'redux';
 import * as ReviewActions from "./actions/ReviewAction";
 import intitialState, { initialState } from "./reducers/ReviewReducer"
+import 'babel-polyfill';
 
 class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            showPopup: false,
             reviews: [],
             reviewIds: [],
         }
-        this.togglePopup = this.togglePopup.bind(this);
         this.addReview =this.addReview.bind(this);
+        this.deleteReview=this.deleteReview.bind(this);
     }
     componentWillReceiveProps(props) {
         this.setState({
@@ -25,28 +25,46 @@ class App extends Component{
             reviewIds: props.reviewIds,
         });
     }
-    togglePopup(){
-        this.setState({
-            showPopup:!this.state.showPopup,
-        })
-    }
+ 
     addReview(review){
         this.props.actions.addReview(review);
     }
+    deleteReview(reviewId){
+        this.props.actions.deleteReview(reviewId);
+    }
+    
     render() {
         return(
             <div className="userFeedback">
                 <div className="header">
                     <h1>TITLE</h1>
-                    <button className="userFeedback-btn" onClick={this.togglePopup}>Give us Feedback</button>
-                    <UserFeedback
-                        hidden={!this.state.showPopup}
-                        togglePopup={this.togglePopup}
-                        addReview={this.addReview}
-                    />
+                    <button 
+                    className="btn btn-primary mb-2" 
+                    data-toggle="modal"
+                    data-target="#feedbackModal"
+                    >
+                        Give us Feedback
+                    </button>
+                </div>
+                <div className="modal fade sm"
+                    id="feedbackModal"
+                    tabIndex="-1" 
+                    role="dialog" 
+                    aria-labelledby="feedbackModalLabel" 
+                    aria-hidden="true"
+                >
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content"> 
+                            <UserFeedback addReview={this.addReview}/>
+                        </div>
+                    </div>
                 </div>
                 <div className="log">
-                <FeedbackLog reviews={this.state.reviews} reviewIds={this.state.reviews}/>
+                    <FeedbackLog 
+                    reviews={this.state.reviews} 
+                    reviewIds={this.state.reviewIds}
+                    deleteReview={this.deleteReview}
+                    />
                 </div>
             </div>
         );

@@ -34,8 +34,7 @@ module.exports = {
                     },
                   },
                 ],
-              }
-
+            }
         ]
     },
     plugins: [htmlWebpackPlugin],

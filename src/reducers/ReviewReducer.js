@@ -14,6 +14,8 @@ export default function reviewReducer(state = initialState, action) {
       return action.review;
     case types.ADD_REVIEW_SUCCESS:
       return action.review;
+    case types.DELETE_REVIEW_SUCCESS:
+      return action.review;
     default: 
       return state;
   }

@@ -15,18 +15,19 @@ class UserFeedback extends Component{
         this.showStars = this.showStars.bind(this);
         this.hideStars = this.hideStars.bind(this);
         this.getRating = this.getRating.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
+        this.clearForm = this.clearForm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.collectFeedback = this.collectFeedback.bind(this);
     }
     showStars(event) {
         if(this.state.rating > 0){
-            for(let i = event.target.attributes[1].value.substring(5); i <= 5; i ++){
+            for(let i = event.target.attributes.id.value.substring(5); i <= 5; i ++){
+                console.log(document.getElementById("star-"+i))
                 document.getElementById("star-"+i).setAttribute("aria-hidden", "true");
             }
         }
         this.setState({rating: 0});
-        for(let i = 1; i <= event.target.attributes[1].value.substring(5); i ++){
+        for(let i = 1; i <= event.target.attributes.id.value.substring(5); i ++){
             document.getElementById("star-"+i).setAttribute("aria-hidden", "false");
         }
     }
@@ -40,7 +41,7 @@ class UserFeedback extends Component{
     }
 
     getRating(event){
-        this.setState({rating:event.target.attributes[1].value.substring(5) })
+        this.setState({rating:event.target.attributes.id.value.substring(5)});
     }
 
     collectFeedback(event){
@@ -50,49 +51,50 @@ class UserFeedback extends Component{
         for(let i = 1; i <= 5; i ++){
             document.getElementById("star-"+i).setAttribute("aria-hidden", "true");
         }
-        document.getElementById("feedback").value = '';
+        document.getElementById("user-input").value = '';
     }
-    handleCancel(){
-        this.props.togglePopup();
-        for(let i = 1; i <= 5; i ++){
-            document.getElementById("star-"+i).setAttribute("aria-hidden", "true");
-        }
-        document.getElementById("feedback").value = '';
 
-    }
     handleSubmit(){
         let review = {}
         review.rating = this.state.rating;
         review.feedback = this.state.feedback;
         review.date = new Date();
+        const d = new Date();
+        review.date =d.getHours() +":" + d.getMinutes()+ " " +d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
         review.system = navigator.userAgent;
-        this.props.togglePopup();
         this.props.addReview(review);
+        this.clearForm()
     }
 
     render(){
         const stars =[1,2,3,4,5];
         return(
-            <div className="modal-backdrop" hidden={this.props.hidden}>
-                <div className="modal"  hidden={this.props.hidden}>
-                    <h2>Feedback</h2>
-                    <h4>Please Rate your experience in the app so far.</h4>
-                    <div className="stars">
-                        {stars.map((star) =>
-                         <span className="star" key={star} 
-                         onClick={this.getRating}
-                         onMouseEnter={this.showStars}
-                         onMouseLeave={this.hideStars}>
-                             <label aria-hidden="true" id={`star-${star}`}>&#9733;</label>&#9734;
-                         </span>
-                        )}
+                <div>
+                    <div className="modal-header">
+                        <h3>Feedback</h3>
                     </div>
-                    <h4>Tell us why you gave us this rating. It'll help us improve! <i>Optional</i></h4>
-                    <textarea onChange={this.collectFeedback} id="feedback" className="user-input"></textarea>
-                    <button onClick={this.handleSubmit} className="btn submit-btn">Submit</button>
-                    <button onClick={this.handleCancel} className="btn cancel-btn">Cancel</button>
+                    <div className="modal-body">
+                    <h5>Please Rate your experience in the app so far.</h5>
+
+                        <div className="stars mb-1">
+                            {stars.map((star) =>
+                                <span className="star" key={star} 
+                                onClick={this.getRating}
+                                onMouseEnter={this.showStars}
+                                onMouseLeave={this.hideStars}
+                                >
+                                    <label aria-hidden="true" key={star} id={`star-${star}`}>&#9733;</label>&#9734;
+                                </span>
+                            )}
+                        </div>
+                        <h5 className="mb-3">Tell us why you gave us this rating. It'll help us improve! <i>Optional</i></h5>
+                        <div className="input-group mb-3">
+                            <textarea className="form-control border-secondary user-input" onChange={this.collectFeedback} id="user-input" aria-label="With textarea"></textarea>
+                        </div>
+                        <button onClick={this.handleSubmit} className="btn btn-primary btn-lg pt-1 pb-1 pr-3 pl-3 mr-1 mt-2"data-dismiss="modal">Submit</button>
+                        <button onClick={this.clearForm} className="btn btn-secondary btn-lg pt-1 pb-1 pr-4 pl-4  mt-2" data-dismiss="modal">Cancel</button>
+                    </div>
                 </div>
-            </div>
         );
     }
 }
